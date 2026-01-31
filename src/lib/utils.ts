@@ -14,9 +14,9 @@ export function formatElapsedTime(startTimestamp: number): string {
   const seconds = elapsed % 60;
 
   if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    return `${String(hours)}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   }
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  return `${String(minutes)}:${seconds.toString().padStart(2, "0")}`;
 }
 
 export function formatRemainingTime(endTimestamp: number): string {
@@ -26,7 +26,7 @@ export function formatRemainingTime(endTimestamp: number): string {
   const minutes = Math.floor(remaining / 60);
   const seconds = remaining % 60;
 
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  return `${String(minutes)}:${seconds.toString().padStart(2, "0")}`;
 }
 
 export function capitalize(str: string): string {

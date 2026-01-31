@@ -25,17 +25,14 @@ export async function resetSettings(): Promise<AppSettings> {
   return invoke("reset_settings");
 }
 
-/** Check if Valorant and Riot Client processes are running */
 export async function checkProcesses(): Promise<ProcessStatus> {
   return invoke("check_processes");
 }
 
-/** Get current game state */
 export async function getGameState(): Promise<GameStatePayload | null> {
   return invoke("get_game_state");
 }
 
-/** Get connection status for Discord and Riot API */
 export async function getConnectionStatus(): Promise<ConnectionStatus> {
   return invoke("get_connection_status");
 }

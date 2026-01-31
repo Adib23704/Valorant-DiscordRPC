@@ -20,6 +20,19 @@ export interface GameStatePayload {
   partySize?: [number, number];
 }
 
+export interface GameState {
+  sessionState: string;
+  queueId?: string;
+  mapName?: string;
+  agentName?: string;
+  partySize?: number;
+  maxPartySize?: number;
+  score?: {
+    ally: number;
+    enemy: number;
+  };
+}
+
 export interface PresenceUpdatePayload {
   activity: DiscordActivity;
   timestamp: number;

@@ -31,7 +31,7 @@ export default tseslint.config(
       "react-hooks/exhaustive-deps": "warn",
       "react-refresh/only-export-components": [
         "warn",
-        { allowConstantExport: true },
+        { allowConstantExport: true, allowExportNames: ["badgeVariants", "buttonVariants"] },
       ],
 
       // TypeScript strict rules
@@ -69,6 +69,7 @@ export default tseslint.config(
       "dist/**",
       "node_modules/**",
       "src-tauri/**",
+      "legacy-python/**",
       "*.config.js",
       "*.config.ts",
     ],
