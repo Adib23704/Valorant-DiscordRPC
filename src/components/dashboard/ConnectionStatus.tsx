@@ -1,7 +1,7 @@
+import { Monitor, MonitorOff, Wifi, WifiOff } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { ConnectionStatus as ConnectionStatusType, ProcessStatus } from "@/types";
 import { StatusIndicator } from "./StatusIndicator";
-import type { ProcessStatus, ConnectionStatus as ConnectionStatusType } from "@/types";
-import { Wifi, WifiOff, Monitor, MonitorOff } from "lucide-react";
 
 interface ConnectionStatusProps {
   processStatus: ProcessStatus | null;

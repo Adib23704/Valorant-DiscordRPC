@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Layout, type TabType } from "@/components/layout";
 import { SettingsPanel } from "@/components/settings";
 import { Toaster } from "@/components/ui/toaster";
-import { Dashboard } from "@/pages/Dashboard";
-import { About } from "@/pages/About";
 import { usePresence, useSettings, useTauriEvents } from "@/hooks";
+import { About } from "@/pages/About";
+import { Dashboard } from "@/pages/Dashboard";
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>("dashboard");

@@ -5,8 +5,6 @@ use crate::error::{AppError, AppResult};
 
 use super::settings::AppSettings;
 
-const SETTINGS_KEY: &str = "settings";
-
 pub struct SettingsStore {
     settings: Arc<RwLock<AppSettings>>,
     store_path: std::path::PathBuf,

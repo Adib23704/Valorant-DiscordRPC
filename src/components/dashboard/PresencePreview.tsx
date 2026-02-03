@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { DiscordActivity } from "@/types";
-import { formatElapsedTime } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatElapsedTime } from "@/lib/utils";
+import type { DiscordActivity } from "@/types";
 
 interface PresencePreviewProps {
   activity: DiscordActivity | null;

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { ProcessStatus, ConnectionStatus } from "@/types";
+import type { ConnectionStatus, ProcessStatus } from "@/types";
 
 interface ConnectionState {
   processStatus: ProcessStatus | null;

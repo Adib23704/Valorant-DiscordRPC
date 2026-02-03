@@ -138,10 +138,7 @@ impl PresenceManager {
                 None => continue,
             };
 
-            let settings = match settings_store.get_settings().await {
-                Ok(s) => s,
-                Err(_) => AppSettings::default(),
-            };
+            let settings: AppSettings = settings_store.get_settings().await.unwrap_or_default();
 
             let presence = match client.fetch_presence().await {
                 Ok(p) => p,
@@ -162,10 +159,7 @@ impl PresenceManager {
                 }
             };
 
-            let puuid = match client.get_puuid().await {
-                Ok(p) => p,
-                Err(_) => String::new(),
-            };
+            let puuid: String = client.get_puuid().await.unwrap_or_default();
 
             let session_state = Self::determine_session_state(
                 presence.session_loop_state.as_deref(),

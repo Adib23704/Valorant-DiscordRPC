@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Play, RefreshCw, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Play, Square, RefreshCw } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface PresenceControlProps {
   isRunning: boolean;

@@ -3,9 +3,9 @@ import { GameStateCard } from "@/components/dashboard/GameStateCard";
 import { PresenceControl } from "@/components/dashboard/PresenceControl";
 import { PresencePreview } from "@/components/dashboard/PresencePreview";
 import type {
-  ProcessStatus,
   ConnectionStatus as ConnectionStatusType,
   DiscordActivity,
+  ProcessStatus,
 } from "@/types";
 import type { GameState } from "@/types/events";
 

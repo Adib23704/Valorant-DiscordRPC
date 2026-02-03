@@ -1,4 +1,4 @@
-import { Home, Settings, Info } from "lucide-react";
+import { Home, Info, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type TabType = "dashboard" | "settings" | "about";
@@ -24,6 +24,7 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       <nav className="flex flex-1 flex-col gap-2">
         {navItems.map(({ id, label, icon: Icon }) => (
           <button
+            type="button"
             key={id}
             onClick={() => {
               onTabChange(id);

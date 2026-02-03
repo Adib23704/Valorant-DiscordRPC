@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { PresenceSettings } from "./PresenceSettings";
-import { StartupSettings } from "./StartupSettings";
-import { GeneralSettings } from "./GeneralSettings";
 import { RotateCcw, Save } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type {
   AppSettings,
   PresenceSettings as PresenceSettingsType,
   StartupSettings as StartupSettingsType,
 } from "@/types";
+import { GeneralSettings } from "./GeneralSettings";
+import { PresenceSettings } from "./PresenceSettings";
+import { StartupSettings } from "./StartupSettings";
 
 interface SettingsPanelProps {
   settings: AppSettings;

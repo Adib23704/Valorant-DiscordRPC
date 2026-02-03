@@ -1,6 +1,6 @@
+import { getCurrentWindow } from "@tauri-apps/api/window";
 import { Activity, Minimize2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getCurrentWindow } from "@tauri-apps/api/window";
 
 interface HeaderProps {
   isRunning: boolean;
@@ -24,7 +24,7 @@ export function Header({ isRunning }: HeaderProps) {
           <Activity className="h-4 w-4 text-white" />
         </div>
         <div>
-          <h1 className="text-sm font-semibold text-foreground">Valorant Discord RPC</h1>
+          <h1 className="text-sm font-semibold text-foreground">Valo Discord RPC</h1>
           <p className="text-xs text-muted-foreground">
             {isRunning ? "Connected" : "Disconnected"}
           </p>

@@ -29,10 +29,7 @@ pub fn run() {
         )
         .init();
 
-    tracing::info!(
-        "Starting Valorant Discord RPC v{}",
-        env!("CARGO_PKG_VERSION")
-    );
+    tracing::info!("Starting Valo Discord RPC v{}", env!("CARGO_PKG_VERSION"));
 
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())

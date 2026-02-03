@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
+import { getSettings, resetSettings, saveSettings } from "@/lib/tauri";
 import { useSettingsStore } from "@/stores/settingsStore";
-import { getSettings, saveSettings, resetSettings } from "@/lib/tauri";
 
 export function useSettings() {
   const {

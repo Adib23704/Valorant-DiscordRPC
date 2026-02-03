@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Clock, Gamepad2, Map as MapIcon, Swords, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { GameState } from "@/types/events";
-import { Gamepad2, Clock, Users, Map, Swords } from "lucide-react";
 
 interface GameStateCardProps {
   gameState: GameState | null;
@@ -63,7 +63,7 @@ export function GameStateCard({ gameState }: GameStateCardProps) {
 
         {gameState.mapName && (
           <div className="flex items-center gap-3">
-            <Map className="h-4 w-4 text-muted-foreground" />
+            <MapIcon className="h-4 w-4 text-muted-foreground" />
             <span className="text-sm">
               <span className="text-muted-foreground">Map:</span>{" "}
               <span className="font-medium">{gameState.mapName}</span>

@@ -1,14 +1,14 @@
 import { useCallback, useEffect } from "react";
-import { usePresenceStore } from "@/stores/presenceStore";
-import { useConnectionStore } from "@/stores/connectionStore";
 import {
-  startPresence,
-  stopPresence,
-  isPresenceRunning,
   checkProcesses,
   getConnectionStatus,
   getGameState,
+  isPresenceRunning,
+  startPresence,
+  stopPresence,
 } from "@/lib/tauri";
+import { useConnectionStore } from "@/stores/connectionStore";
+import { usePresenceStore } from "@/stores/presenceStore";
 
 export function usePresence() {
   const {

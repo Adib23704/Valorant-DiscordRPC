@@ -1,6 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -8,7 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { PresenceSettings as PresenceSettingsType, ImagePreference } from "@/types";
+import { Switch } from "@/components/ui/switch";
+import type { ImagePreference, PresenceSettings as PresenceSettingsType } from "@/types";
 
 interface PresenceSettingsProps {
   settings: PresenceSettingsType;

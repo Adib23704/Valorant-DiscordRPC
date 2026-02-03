@@ -1,14 +1,14 @@
-import { useEffect } from "react";
 import { listen, type UnlistenFn } from "@tauri-apps/api/event";
-import { usePresenceStore } from "@/stores/presenceStore";
-import { useConnectionStore } from "@/stores/connectionStore";
+import { useEffect } from "react";
 import { toast } from "@/hooks/useToast";
+import { useConnectionStore } from "@/stores/connectionStore";
+import { usePresenceStore } from "@/stores/presenceStore";
 import {
+  type ConnectionPayload,
+  type ErrorPayload,
   EVENT_NAMES,
   type GameStatePayload,
   type PresenceUpdatePayload,
-  type ConnectionPayload,
-  type ErrorPayload,
 } from "@/types/events";
 
 export function useTauriEvents() {
@@ -67,9 +67,9 @@ export function useTauriEvents() {
     void setupListeners();
 
     return () => {
-      unlistenFns.forEach((unlisten) => {
+      for (const unlisten of unlistenFns) {
         unlisten();
-      });
+      }
     };
   }, [setActivity, setGameState, setError, setConnectionStatus]);
 }
