@@ -31,9 +31,16 @@ pub fn run() {
 
     tracing::info!("Starting Valo Discord RPC v{}", env!("CARGO_PKG_VERSION"));
 
-    tauri::Builder::default()
+    let mut builder = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_store::Builder::default().build())
+        .plugin(tauri_plugin_store::Builder::default().build());
+
+    #[cfg(debug_assertions)]
+    {
+        builder = builder.plugin(tauri_plugin_mcp_bridge::init());
+    }
+
+    builder
         .setup(|app| {
             let app_data_dir = app
                 .path()
