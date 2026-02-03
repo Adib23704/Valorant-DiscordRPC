@@ -36,17 +36,12 @@ Cargo.lock
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Environment files
 .env
 .env.local
 .env.*.local
-
-# Legacy Python code (can be removed after migration is complete)
-# legacy-python/venv/
-# legacy-python/build/
-# legacy-python/dist/
-# legacy-python/__pycache__/
 
 # TypeScript build info
 *.tsbuildinfo

@@ -8,13 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Valorant-inspired color palette
         valorant: {
           red: "#ff4655",
           "red-dark": "#bd3944",
           "red-light": "#ff6b77",
         },
-        // shadcn/ui compatible theming
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
