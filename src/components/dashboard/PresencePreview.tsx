@@ -39,7 +39,7 @@ export function PresencePreview({ activity, isConnected }: PresencePreviewProps)
       <CardContent>
         <div className="rounded-lg bg-[#232428] p-4">
           <div className="flex gap-4">
-            <div className="relative h-16 w-16 flex-shrink-0">
+            <div className="relative h-16 w-16 shrink-0">
               <div className="flex h-full w-full items-center justify-center rounded-lg bg-[#36393f]">
                 {activity?.largeImage ? (
                   <img

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   checkProcesses,
   getConnectionStatus,
@@ -9,6 +9,7 @@ import {
 } from "@/lib/tauri";
 import { useConnectionStore } from "@/stores/connectionStore";
 import { usePresenceStore } from "@/stores/presenceStore";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 export function usePresence() {
   const {
@@ -25,6 +26,10 @@ export function usePresence() {
 
   const { processStatus, connectionStatus, setProcessStatus, setConnectionStatus } =
     useConnectionStore();
+
+  const { settings } = useSettingsStore();
+  const refreshInterval = settings.refreshIntervalMs;
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const checkInitialState = async () => {
@@ -71,9 +76,7 @@ export function usePresence() {
                 score: state.score ? { ally: state.score[0], enemy: state.score[1] } : undefined,
               });
             }
-          } catch {
-            // Game state might not be available yet
-          }
+          } catch {}
         }
       } catch (err) {
         console.error("Failed to poll status:", err);
@@ -81,14 +84,22 @@ export function usePresence() {
     };
 
     void pollStatus();
-    const interval = setInterval(() => {
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    intervalRef.current = setInterval(() => {
       void pollStatus();
-    }, 3000);
+    }, refreshInterval);
 
     return () => {
-      clearInterval(interval);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     };
-  }, [isRunning, setProcessStatus, setConnectionStatus, setGameState]);
+  }, [isRunning, refreshInterval, setProcessStatus, setConnectionStatus, setGameState]);
 
   const handleStart = useCallback(async () => {
     setIsLoading(true);

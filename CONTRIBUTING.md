@@ -50,7 +50,7 @@ Feature suggestions are welcome! Please:
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/valo-discord-rpc.git
+git clone https://github.com/Adib23704/valo-discord-rpc.git
 cd valo-discord-rpc
 
 # Install dependencies

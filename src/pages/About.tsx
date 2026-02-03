@@ -1,7 +1,9 @@
+import { openUrl } from "@tauri-apps/plugin-opener";
 import { ExternalLink, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 function GitHubIcon({ className }: { className?: string }) {
   return (
@@ -17,9 +19,9 @@ function GitHubIcon({ className }: { className?: string }) {
   );
 }
 
-import { openUrl } from "@tauri-apps/plugin-opener";
-
 export function About() {
+  const { settings } = useSettingsStore();
+
   const handleOpenLink = async (url: string) => {
     await openUrl(url);
   };
@@ -49,7 +51,7 @@ export function About() {
             <div className="flex flex-col gap-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Version</span>
-                <span className="font-mono">0.1.0</span>
+                <span className="font-mono">{settings.version}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Framework</span>
