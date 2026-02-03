@@ -1,40 +1,32 @@
 use parking_lot::RwLock;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use tokio::sync::mpsc;
+use std::time::Duration;
+use tokio::sync::Notify;
 
 use crate::commands::status::ConnectionStatus;
-use crate::config::AppSettings;
-use crate::content::ContentData;
+use crate::config::{AppSettings, SettingsStore};
+use crate::content::{ContentData, ContentLoader};
 use crate::discord::DiscordClient;
 use crate::error::AppResult;
 use crate::events::GameStatePayload;
-use crate::process::ProcessDetector;
-use crate::riot::SessionLoopState;
-
-enum PresenceCommand {
-    Start,
-    Stop,
-    UpdateSettings(AppSettings),
-}
+use crate::presence::states::*;
+use crate::riot::{RiotClient, SessionLoopState};
 
 pub struct PresenceManager {
-    running: Arc<RwLock<bool>>,
-
+    running: Arc<AtomicBool>,
+    stop_signal: Arc<Notify>,
     current_state: Arc<RwLock<Option<GameStatePayload>>>,
-
     connection_status: Arc<RwLock<ConnectionStatus>>,
-
     discord: Arc<DiscordClient>,
-
     content: Arc<RwLock<Option<ContentData>>>,
-
-    command_tx: Option<mpsc::Sender<PresenceCommand>>,
 }
 
 impl PresenceManager {
     pub fn new() -> Self {
         Self {
-            running: Arc::new(RwLock::new(false)),
+            running: Arc::new(AtomicBool::new(false)),
+            stop_signal: Arc::new(Notify::new()),
             current_state: Arc::new(RwLock::new(None)),
             connection_status: Arc::new(RwLock::new(ConnectionStatus {
                 discord_connected: false,
@@ -42,39 +34,272 @@ impl PresenceManager {
             })),
             discord: Arc::new(DiscordClient::new()),
             content: Arc::new(RwLock::new(None)),
-            command_tx: None,
         }
     }
 
-    pub async fn start(&self) -> AppResult<()> {
-        if *self.running.read() {
+    pub async fn start(&self, settings_store: Arc<SettingsStore>) -> AppResult<()> {
+        if self.running.load(Ordering::SeqCst) {
             return Ok(());
         }
 
         self.discord.connect()?;
         self.connection_status.write().discord_connected = true;
 
-        *self.running.write() = true;
+        self.running.store(true, Ordering::SeqCst);
         tracing::info!("Presence manager started");
+
+        let running = self.running.clone();
+        let stop_signal = self.stop_signal.clone();
+        let current_state = self.current_state.clone();
+        let connection_status = self.connection_status.clone();
+        let discord = self.discord.clone();
+        let content_store = self.content.clone();
+
+        tokio::spawn(async move {
+            Self::presence_loop(
+                running,
+                stop_signal,
+                current_state,
+                connection_status,
+                discord,
+                content_store,
+                settings_store,
+            )
+            .await;
+        });
 
         Ok(())
     }
 
+    async fn presence_loop(
+        running: Arc<AtomicBool>,
+        stop_signal: Arc<Notify>,
+        current_state: Arc<RwLock<Option<GameStatePayload>>>,
+        connection_status: Arc<RwLock<ConnectionStatus>>,
+        discord: Arc<DiscordClient>,
+        content_store: Arc<RwLock<Option<ContentData>>>,
+        settings_store: Arc<SettingsStore>,
+    ) {
+        let mut riot_client: Option<RiotClient> = None;
+        let mut last_state: Option<String> = None;
+        let mut activity_start_time: Option<i64> = None;
+        let mut content_loaded = false;
+
+        loop {
+            if !running.load(Ordering::SeqCst) {
+                break;
+            }
+
+            let poll_result = tokio::select! {
+                _ = stop_signal.notified() => {
+                    tracing::info!("Received stop signal");
+                    break;
+                }
+                _ = tokio::time::sleep(Duration::from_secs(3)) => {
+                    true
+                }
+            };
+
+            if !poll_result {
+                continue;
+            }
+
+            if !content_loaded {
+                let loader = ContentLoader::new();
+                match loader.load_all().await {
+                    Ok(content) => {
+                        *content_store.write() = Some(content);
+                        content_loaded = true;
+                        tracing::info!("Loaded content data from valorant-api.com");
+                    }
+                    Err(e) => {
+                        tracing::warn!("Failed to load content: {}", e);
+                    }
+                }
+            }
+
+            if riot_client.is_none() {
+                match RiotClient::new() {
+                    Ok(client) => {
+                        riot_client = Some(client);
+                        connection_status.write().riot_api_connected = true;
+                        tracing::info!("Connected to Riot API");
+                    }
+                    Err(e) => {
+                        tracing::debug!("Waiting for Riot Client: {}", e);
+                        connection_status.write().riot_api_connected = false;
+                        continue;
+                    }
+                }
+            }
+
+            let client = match riot_client.as_mut() {
+                Some(c) => c,
+                None => continue,
+            };
+
+            let settings = match settings_store.get_settings().await {
+                Ok(s) => s,
+                Err(_) => AppSettings::default(),
+            };
+
+            let presence = match client.fetch_presence().await {
+                Ok(p) => p,
+                Err(e) => {
+                    tracing::debug!("Failed to fetch presence: {}", e);
+
+                    riot_client = None;
+                    connection_status.write().riot_api_connected = false;
+                    continue;
+                }
+            };
+
+            let content = match content_store.read().clone() {
+                Some(c) => c,
+                None => {
+                    tracing::debug!("Content not loaded yet");
+                    continue;
+                }
+            };
+
+            let puuid = match client.get_puuid().await {
+                Ok(p) => p,
+                Err(_) => String::new(),
+            };
+
+            let session_state = Self::determine_session_state(
+                presence.session_loop_state.as_deref(),
+                presence.provisioning_flow.as_deref(),
+            );
+
+            let is_in_queue = presence.party_state.as_deref() == Some("MATCHMAKING");
+
+            let state_key = format!(
+                "{:?}-{}-{}",
+                session_state,
+                presence.queue_id.as_deref().unwrap_or(""),
+                is_in_queue
+            );
+            if last_state.as_ref() != Some(&state_key) {
+                activity_start_time = Some(chrono::Utc::now().timestamp());
+                last_state = Some(state_key);
+            }
+
+            let activity = match session_state {
+                SessionLoopState::Menus => {
+                    if presence.is_idle {
+                        build_away_presence(&presence)
+                    } else if presence.provisioning_flow.as_deref() == Some("CustomGame") {
+                        build_custom_setup_presence(&presence, &content)
+                    } else if is_in_queue {
+                        build_queue_presence(&presence, &content, &settings)
+                    } else {
+                        build_menu_presence(&presence, &content, &settings)
+                    }
+                }
+                SessionLoopState::Pregame => match client.fetch_pregame_player().await {
+                    Ok(pregame_player) => {
+                        match client.fetch_pregame_match(&pregame_player.match_id).await {
+                            Ok(pregame_match) => {
+                                let player_info =
+                                    pregame_match.ally_team.as_ref().and_then(|team| {
+                                        team.players.iter().find(|p| p.subject == puuid)
+                                    });
+
+                                build_pregame_presence(
+                                    &presence,
+                                    &pregame_match,
+                                    player_info,
+                                    &content,
+                                    &settings,
+                                )
+                            }
+                            Err(_) => build_menu_presence(&presence, &content, &settings),
+                        }
+                    }
+                    Err(_) => build_menu_presence(&presence, &content, &settings),
+                },
+                SessionLoopState::Ingame => {
+                    if presence.provisioning_flow.as_deref() == Some("ShootingRange") {
+                        build_range_presence(&presence, &content, &settings, activity_start_time)
+                    } else {
+                        match client.fetch_coregame_player().await {
+                            Ok(coregame_player) => {
+                                match client.fetch_coregame_match(&coregame_player.match_id).await {
+                                    Ok(coregame_match) => {
+                                        let player_info = coregame_match
+                                            .players
+                                            .iter()
+                                            .find(|p| p.subject == puuid);
+
+                                        build_ingame_presence(
+                                            &presence,
+                                            &coregame_match,
+                                            player_info,
+                                            &content,
+                                            &settings,
+                                            activity_start_time,
+                                        )
+                                    }
+                                    Err(_) => build_menu_presence(&presence, &content, &settings),
+                                }
+                            }
+                            Err(_) => build_menu_presence(&presence, &content, &settings),
+                        }
+                    }
+                }
+            };
+
+            {
+                let game_state = GameStatePayload {
+                    valorant_running: true,
+                    riot_client_running: true,
+                    session_state,
+                    queue_id: presence.queue_id.clone(),
+                    map_name: None,
+                    agent_name: None,
+                    party_size: Some((presence.party_size, presence.max_party_size)),
+                    score: match (
+                        presence.party_owner_match_score_ally_team,
+                        presence.party_owner_match_score_enemy_team,
+                    ) {
+                        (Some(ally), Some(enemy)) => Some((ally, enemy)),
+                        _ => None,
+                    },
+                    is_idle: presence.is_idle,
+                };
+                *current_state.write() = Some(game_state);
+            }
+
+            if let Err(e) = discord.update_activity(&activity) {
+                tracing::warn!("Failed to update Discord activity: {}", e);
+
+                if discord.reconnect().is_err() {
+                    connection_status.write().discord_connected = false;
+                }
+            }
+        }
+
+        tracing::info!("Presence loop ended");
+    }
+
     pub async fn stop(&self) -> AppResult<()> {
-        *self.running.write() = false;
+        self.running.store(false, Ordering::SeqCst);
+        self.stop_signal.notify_one();
 
         let _ = self.discord.clear_activity();
         let _ = self.discord.disconnect();
 
         self.connection_status.write().discord_connected = false;
         self.connection_status.write().riot_api_connected = false;
+        *self.current_state.write() = None;
 
         tracing::info!("Presence manager stopped");
         Ok(())
     }
 
     pub async fn is_running(&self) -> bool {
-        *self.running.read()
+        self.running.load(Ordering::SeqCst)
     }
 
     pub async fn get_current_state(&self) -> Option<GameStatePayload> {
@@ -85,32 +310,7 @@ impl PresenceManager {
         self.connection_status.read().clone()
     }
 
-    pub fn update_state(&self, state: GameStatePayload) {
-        *self.current_state.write() = Some(state);
-    }
-
-    pub fn set_content(&self, content: ContentData) {
-        *self.content.write() = Some(content);
-    }
-
-    pub fn get_content(&self) -> Option<ContentData> {
-        self.content.read().clone()
-    }
-
-    pub fn discord(&self) -> &DiscordClient {
-        &self.discord
-    }
-
-    pub fn detect_processes(&self) -> (bool, bool) {
-        let detector = ProcessDetector::new().refreshed();
-        (
-            detector.is_valorant_running(),
-            detector.is_riot_client_running(),
-        )
-    }
-
-    pub fn determine_session_state(
-        &self,
+    fn determine_session_state(
         session_loop_state: Option<&str>,
         provisioning_flow: Option<&str>,
     ) -> SessionLoopState {

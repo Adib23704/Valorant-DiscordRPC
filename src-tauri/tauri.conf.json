@@ -53,8 +53,5 @@
     "category": "Utility",
     "shortDescription": "Discord Rich Presence for Valorant",
     "longDescription": "A modern Discord Rich Presence client for Valorant that displays your in-game status on Discord."
-  },
-  "plugins": {
-    "store": {}
   }
 }

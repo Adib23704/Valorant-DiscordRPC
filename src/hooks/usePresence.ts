@@ -71,7 +71,9 @@ export function usePresence() {
                 score: state.score ? { ally: state.score[0], enemy: state.score[1] } : undefined,
               });
             }
-          } catch {}
+          } catch {
+            // Game state might not be available yet
+          }
         }
       } catch (err) {
         console.error("Failed to poll status:", err);

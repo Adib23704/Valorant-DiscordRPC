@@ -37,7 +37,7 @@ pub fn build_ingame_presence(
             let name = coregame_match
                 .map_id
                 .split('/')
-                .last()
+                .next_back()
                 .unwrap_or("Unknown")
                 .to_string();
             (map_asset(&name), name)

@@ -22,7 +22,7 @@ pub fn build_map_info(map_path: &str, content: &ContentData) -> (String, String)
     if let Some(map) = content.get_map_by_path(map_path) {
         (map_asset(&map.display_name), map.display_name.clone())
     } else {
-        let name = map_path.split('/').last().unwrap_or("Unknown").to_string();
+        let name = map_path.split('/').next_back().unwrap_or("Unknown").to_string();
         (map_asset(&name), name)
     }
 }

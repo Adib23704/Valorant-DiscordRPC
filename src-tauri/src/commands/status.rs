@@ -1,3 +1,4 @@
+use std::sync::Arc;
 use tauri::State;
 
 use crate::error::AppResult;
@@ -16,14 +17,14 @@ pub async fn check_processes() -> AppResult<ProcessStatus> {
 
 #[tauri::command]
 pub async fn get_game_state(
-    manager: State<'_, PresenceManager>,
+    manager: State<'_, Arc<PresenceManager>>,
 ) -> AppResult<Option<GameStatePayload>> {
     Ok(manager.get_current_state().await)
 }
 
 #[tauri::command]
 pub async fn get_connection_status(
-    manager: State<'_, PresenceManager>,
+    manager: State<'_, Arc<PresenceManager>>,
 ) -> AppResult<ConnectionStatus> {
     Ok(manager.get_connection_status().await)
 }

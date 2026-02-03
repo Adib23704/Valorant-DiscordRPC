@@ -7,3 +7,5 @@ export * from "./separator";
 export * from "./slider";
 export * from "./switch";
 export * from "./tabs";
+export * from "./toast";
+export * from "./toaster";

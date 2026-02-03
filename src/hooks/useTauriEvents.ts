@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { listen, type UnlistenFn } from "@tauri-apps/api/event";
 import { usePresenceStore } from "@/stores/presenceStore";
 import { useConnectionStore } from "@/stores/connectionStore";
+import { toast } from "@/hooks/useToast";
 import {
   EVENT_NAMES,
   type GameStatePayload,
@@ -53,6 +54,11 @@ export function useTauriEvents() {
 
       const unlistenError = await listen<ErrorPayload>(EVENT_NAMES.ERROR, (event) => {
         setError(event.payload.message);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: event.payload.message,
+        });
         console.error(`[${event.payload.code}] ${event.payload.message}`);
       });
       unlistenFns.push(unlistenError);

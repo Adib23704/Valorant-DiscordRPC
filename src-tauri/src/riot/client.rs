@@ -19,7 +19,7 @@ impl RiotClient {
         let client = reqwest::Client::builder()
             .danger_accept_invalid_certs(true)
             .build()
-            .map_err(|e| AppError::Http(e))?;
+            .map_err(AppError::Http)?;
 
         Ok(Self {
             client,
@@ -32,7 +32,7 @@ impl RiotClient {
         let client = reqwest::Client::builder()
             .danger_accept_invalid_certs(true)
             .build()
-            .map_err(|e| AppError::Http(e))?;
+            .map_err(AppError::Http)?;
 
         Ok(Self {
             client,
