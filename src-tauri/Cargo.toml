@@ -2,10 +2,10 @@
 name = "valo-discord-rpc"
 version = "0.1.0"
 description = "A modern Discord Rich Presence client for Valorant"
-authors = ["you"]
+authors = ["Adib23704"]
 edition = "2021"
 license = "Apache-2.0"
-repository = "https://github.com/krvntzkl/valorant-rpc"
+repository = "https://github.com/Adib23704/valo-discord-rpc"
 
 [lib]
 name = "valo_discord_rpc_lib"
@@ -15,47 +15,28 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-# Tauri core
 tauri = { version = "2", features = ["tray-icon"] }
 tauri-plugin-opener = "2"
 tauri-plugin-store = "2"
-
-# Async runtime
-tokio = { version = "1", features = ["full", "sync"] }
-
-# HTTP client (with rustls for self-signed cert handling)
-reqwest = { version = "0.12", default-features = false, features = [
-  "json",
-  "rustls-tls",
-] }
-
-# Serialization
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
-# Process detection
-sysinfo = "0.32"
 
-# Discord Rich Presence
-discord-rich-presence = "0.2"
 
-# Error handling
-thiserror = "2"
-anyhow = "1"
+tokio = { version = "1.49.0", features = ["full", "sync"] }
+reqwest = { version = "0.13.1", default-features = false, features = ["json", "rustls"] }
+sysinfo = "0.38.0"
+discord-rich-presence = "1.1.0"
+thiserror = "2.0.18"
+anyhow = "1.0.100"
+chrono = { version = "0.4.43", features = ["serde"] }
+tracing = "0.1.44"
+base64 = "0.22.1"
+futures = "0.3.31"
+parking_lot = "0.12.5"
+tracing-subscriber = { version = "0.3.22", features = ["env-filter"] }
 
-# Date/time handling
-chrono = { version = "0.4", features = ["serde"] }
-
-# Logging
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-
-# Base64 encoding for auth
-base64 = "0.22"
-
-# Async utilities
-futures = "0.3"
-parking_lot = "0.12"
+[dev-dependencies]
 tauri-plugin-mcp-bridge = "0.8.1"
 
 [features]
