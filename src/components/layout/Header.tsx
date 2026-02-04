@@ -28,7 +28,7 @@ export function Header({ isRunning }: HeaderProps) {
           <Activity className="h-4 w-4 text-white" aria-hidden="true" />
         </div>
         <div data-tauri-drag-region>
-          <h1 className="text-sm font-semibold text-foreground">Valo Discord RPC</h1>
+          <h1 className="text-sm font-semibold text-foreground">Valorant DiscordRPC</h1>
           <p className="text-xs text-muted-foreground">
             {isRunning ? "Connected" : "Disconnected"}
           </p>

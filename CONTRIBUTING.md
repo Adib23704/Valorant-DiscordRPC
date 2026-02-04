@@ -1,6 +1,6 @@
-# Contributing to ValoDiscordRPC
+# Contributing to Valorant DiscordRPC
 
-Thank you for your interest in contributing to ValoDiscordRPC! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to Valorant DiscordRPC! This document provides guidelines and information for contributors.
 
 ## Code of Conduct
 
@@ -50,8 +50,8 @@ Feature suggestions are welcome! Please:
 
 ```bash
 # Clone your fork
-git clone https://github.com/Adib23704/valo-discord-rpc.git
-cd valo-discord-rpc
+git clone https://github.com/Adib23704/Valorant-DiscordRPC.git
+cd Valorant-DiscordRPC
 
 # Install dependencies
 pnpm install --frozen-lockfile

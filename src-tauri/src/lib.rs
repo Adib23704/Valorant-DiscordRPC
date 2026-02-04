@@ -24,12 +24,15 @@ pub fn run() {
   tracing_subscriber::fmt()
     .with_env_filter(
       tracing_subscriber::EnvFilter::from_default_env()
-        .add_directive("valo_discord_rpc=debug".parse().unwrap())
+        .add_directive("valorant_discordrpc=debug".parse().unwrap())
         .add_directive("tauri=info".parse().unwrap()),
     )
     .init();
 
-  tracing::info!("Starting Valo Discord RPC v{}", env!("CARGO_PKG_VERSION"));
+  tracing::info!(
+    "Starting Valorant DiscordRPC v{}",
+    env!("CARGO_PKG_VERSION")
+  );
 
   let builder = tauri::Builder::default()
     .plugin(tauri_plugin_opener::init())

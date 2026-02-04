@@ -30,7 +30,7 @@ export function About() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-foreground">About</h2>
-        <p className="text-sm text-muted-foreground">Information about Valo Discord RPC</p>
+        <p className="text-sm text-muted-foreground">Information about Valorant DiscordRPC</p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -40,7 +40,7 @@ export function About() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-valorant-red">
                 <span className="text-sm font-bold text-white">V</span>
               </div>
-              Valo Discord RPC
+              Valorant DiscordRPC
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">

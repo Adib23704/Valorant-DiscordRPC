@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Valo Discord RPC",
+  "productName": "Valorant DiscordRPC",
   "version": "0.1.0",
-  "identifier": "com.valorant.discord-rpc",
+  "identifier": "com.valorant.discordrpc",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "beforeBuildCommand": "pnpm build",
@@ -13,7 +13,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "Valo Discord RPC",
+        "title": "Valorant DiscordRPC",
         "width": 900,
         "height": 650,
         "minWidth": 800,
