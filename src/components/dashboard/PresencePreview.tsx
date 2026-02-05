@@ -33,29 +33,29 @@ export function PresencePreview({ activity, isConnected }: PresencePreviewProps)
 
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg">Discord Presence Preview</CardTitle>
+      <CardHeader className="pb-2">
+        <CardTitle>Discord Preview</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="rounded-lg bg-[#232428] p-4">
-          <div className="flex gap-4">
-            <div className="relative h-16 w-16 shrink-0">
-              <div className="flex h-full w-full items-center justify-center rounded-lg bg-[#36393f]">
+        <div className="rounded bg-[#232428] p-2.5">
+          <div className="flex gap-2.5">
+            <div className="relative h-12 w-12 shrink-0">
+              <div className="flex h-full w-full items-center justify-center rounded bg-[#36393f]">
                 {activity?.largeImage ? (
                   <img
                     src={`https://cdn.discordapp.com/app-assets/1354173612487213268/${activity.largeImage}.png`}
                     alt={activity.largeText ?? "Large image"}
-                    className="h-full w-full rounded-lg object-cover"
+                    className="h-full w-full rounded object-cover"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = "none";
                     }}
                   />
                 ) : (
-                  <span className="text-2xl text-gray-500">?</span>
+                  <span className="text-lg text-gray-500">?</span>
                 )}
               </div>
               {activity?.smallImage && (
-                <div className="absolute -bottom-1 -right-1 h-6 w-6 overflow-hidden rounded-full border-2 border-[#232428] bg-[#36393f]">
+                <div className="absolute -bottom-0.5 -right-0.5 h-4 w-4 overflow-hidden rounded-full border-[1.5px] border-[#232428] bg-[#36393f]">
                   <img
                     src={`https://cdn.discordapp.com/app-assets/1354173612487213268/${activity.smallImage}.png`}
                     alt={activity.smallText ?? "Small image"}
@@ -69,28 +69,30 @@ export function PresencePreview({ activity, isConnected }: PresencePreviewProps)
             </div>
 
             <div className="flex min-w-0 flex-1 flex-col justify-center">
-              <p className="text-sm font-semibold text-white">Valorant</p>
+              <p className="text-xs font-semibold text-white">Valorant</p>
               {activity?.details && (
-                <p className="truncate text-sm text-gray-300">{activity.details}</p>
+                <p className="truncate text-[11px] leading-tight text-gray-300">
+                  {activity.details}
+                </p>
               )}
               {activity?.state && (
-                <p className="truncate text-sm text-gray-300">{activity.state}</p>
+                <p className="truncate text-[11px] leading-tight text-gray-300">{activity.state}</p>
               )}
-              {elapsedTime && <p className="text-xs text-gray-400">{elapsedTime} elapsed</p>}
+              {elapsedTime && <p className="text-[10px] text-gray-400">{elapsedTime}</p>}
             </div>
           </div>
 
-          <div className="mt-3 flex items-center justify-between border-t border-[#36393f] pt-3">
-            <span className="text-xs text-gray-400">
-              {isConnected ? "Live Preview" : "Preview (Disconnected)"}
+          <div className="mt-2 flex items-center justify-between border-t border-[#36393f] pt-2">
+            <span className="text-[10px] text-gray-400">
+              {isConnected ? "Live" : "Disconnected"}
             </span>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1">
               <span
-                className={`h-2 w-2 rounded-full ${
-                  isConnected ? "bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.5)]" : "bg-gray-500"
+                className={`h-1.5 w-1.5 rounded-full ${
+                  isConnected ? "bg-green-500 shadow-[0_0_4px_rgba(34,197,94,0.5)]" : "bg-gray-500"
                 }`}
               />
-              <span className="text-xs text-gray-400">{isConnected ? "Connected" : "Offline"}</span>
+              <span className="text-[10px] text-gray-400">{isConnected ? "On" : "Off"}</span>
             </div>
           </div>
         </div>

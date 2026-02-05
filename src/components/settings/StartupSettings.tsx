@@ -11,18 +11,15 @@ interface StartupSettingsProps {
 export function StartupSettings({ settings, onChange }: StartupSettingsProps) {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>Startup & Behavior</CardTitle>
-        <CardDescription>Configure how the application starts and behaves</CardDescription>
+        <CardDescription>App startup and window behavior</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-2">
         <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label htmlFor="minimize-tray">Minimize to Tray</Label>
-            <p className="text-xs text-muted-foreground">
-              Keep running in system tray when window is closed
-            </p>
-          </div>
+          <Label htmlFor="minimize-tray" className="text-xs">
+            Minimize to Tray
+          </Label>
           <Switch
             id="minimize-tray"
             checked={settings.minimizeToTray}
@@ -33,10 +30,9 @@ export function StartupSettings({ settings, onChange }: StartupSettingsProps) {
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label htmlFor="start-minimized">Start Minimized</Label>
-            <p className="text-xs text-muted-foreground">Start the app minimized to system tray</p>
-          </div>
+          <Label htmlFor="start-minimized" className="text-xs">
+            Start Minimized
+          </Label>
           <Switch
             id="start-minimized"
             checked={settings.startMinimized}
@@ -47,10 +43,9 @@ export function StartupSettings({ settings, onChange }: StartupSettingsProps) {
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label htmlFor="auto-start">Launch on Startup</Label>
-            <p className="text-xs text-muted-foreground">Automatically start when Windows boots</p>
-          </div>
+          <Label htmlFor="auto-start" className="text-xs">
+            Launch on Startup
+          </Label>
           <Switch
             id="auto-start"
             checked={settings.autoStart}

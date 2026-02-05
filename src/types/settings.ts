@@ -19,7 +19,6 @@ export interface AppSettings {
   version: string;
   region: string;
   locale: string;
-  refreshIntervalMs: number;
   presence: PresenceSettings;
   startup: StartupSettings;
 }
@@ -28,7 +27,6 @@ export const DEFAULT_SETTINGS: AppSettings = {
   version: "0.1.0",
   region: "",
   locale: "en-US",
-  refreshIntervalMs: 3000,
   presence: {
     showRankInCompLobby: true,
     showRankInRange: false,

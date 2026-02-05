@@ -28,7 +28,6 @@ function App() {
     hasChanges,
     updatePresenceSettings,
     updateStartupSettings,
-    updateGeneralSettings,
     save: handleSaveSettings,
     reset: handleResetSettings,
   } = useSettings();
@@ -54,7 +53,6 @@ function App() {
             settings={settings}
             onPresenceChange={updatePresenceSettings}
             onStartupChange={updateStartupSettings}
-            onGeneralChange={updateGeneralSettings}
             onSave={() => {
               void handleSaveSettings();
             }}

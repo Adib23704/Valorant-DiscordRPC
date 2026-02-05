@@ -6,7 +6,6 @@ pub struct AppSettings {
   pub version: String,
   pub region: String,
   pub locale: String,
-  pub refresh_interval_ms: u64,
   pub presence: PresenceSettings,
   pub startup: StartupSettings,
 }
@@ -17,7 +16,6 @@ impl Default for AppSettings {
       version: env!("CARGO_PKG_VERSION").to_string(),
       region: String::new(),
       locale: "en-US".to_string(),
-      refresh_interval_ms: 3000,
       presence: PresenceSettings::default(),
       startup: StartupSettings::default(),
     }

@@ -11,7 +11,6 @@ interface SettingsState {
   setSettings: (settings: AppSettings) => void;
   updatePresenceSettings: (updates: Partial<PresenceSettings>) => void;
   updateStartupSettings: (updates: Partial<StartupSettings>) => void;
-  updateGeneralSettings: (updates: Partial<AppSettings>) => void;
   setOriginalSettings: (settings: AppSettings) => void;
   setIsSaving: (saving: boolean) => void;
   setIsLoading: (loading: boolean) => void;
@@ -48,12 +47,6 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         ...state.settings,
         startup: { ...state.settings.startup, ...updates },
       },
-    }));
-  },
-
-  updateGeneralSettings: (updates) => {
-    set((state) => ({
-      settings: { ...state.settings, ...updates },
     }));
   },
 

@@ -90,18 +90,14 @@ impl PresenceManager {
         break;
       }
 
-      let refresh_interval_ms = settings_store
-        .get_settings()
-        .await
-        .map(|s| s.refresh_interval_ms)
-        .unwrap_or(3000);
+      const POLL_INTERVAL_MS: u64 = 3000;
 
       let poll_result = tokio::select! {
           _ = stop_signal.notified() => {
               tracing::info!("Received stop signal");
               break;
           }
-          _ = tokio::time::sleep(Duration::from_millis(refresh_interval_ms)) => {
+          _ = tokio::time::sleep(Duration::from_millis(POLL_INTERVAL_MS)) => {
               true
           }
       };

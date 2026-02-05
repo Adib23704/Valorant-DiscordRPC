@@ -8,16 +8,16 @@ interface StatusIndicatorProps {
 
 export function StatusIndicator({ status, label, className }: StatusIndicatorProps) {
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn("flex items-center gap-1.5", className)}>
       <span
         className={cn(
-          "h-2 w-2 rounded-full",
-          status === "online" && "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]",
+          "h-1.5 w-1.5 rounded-full",
+          status === "online" && "bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.5)]",
           status === "offline" && "bg-gray-500",
           status === "connecting" && "animate-pulse bg-yellow-500"
         )}
       />
-      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-xs text-muted-foreground">{label}</span>
     </div>
   );
 }

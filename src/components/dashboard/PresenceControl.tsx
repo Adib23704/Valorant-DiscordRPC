@@ -12,40 +12,43 @@ interface PresenceControlProps {
 export function PresenceControl({ isRunning, isLoading, onStart, onStop }: PresenceControlProps) {
   return (
     <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg">Presence Control</CardTitle>
+      <CardHeader className="pb-2">
+        <CardTitle>Presence Control</CardTitle>
         <CardDescription>
-          {isRunning
-            ? "Your Discord presence is being updated"
-            : "Click start to begin showing your Valorant status"}
+          {isRunning ? "Presence active" : "Start to show your status"}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex gap-3">
-          {isRunning ? (
-            <Button variant="destructive" className="flex-1" onClick={onStop} disabled={isLoading}>
-              {isLoading ? (
-                <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <Square className="mr-2 h-4 w-4" />
-              )}
-              Stop Presence
-            </Button>
-          ) : (
-            <Button
-              className="flex-1 bg-valorant-red hover:bg-valorant-red-dark"
-              onClick={onStart}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <Play className="mr-2 h-4 w-4" />
-              )}
-              Start Presence
-            </Button>
-          )}
-        </div>
+        {isRunning ? (
+          <Button
+            variant="destructive"
+            size="sm"
+            className="w-full"
+            onClick={onStop}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <RefreshCw className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <Square className="mr-1.5 h-3.5 w-3.5" />
+            )}
+            Stop
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            className="w-full bg-valorant-red hover:bg-valorant-red-dark"
+            onClick={onStart}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <RefreshCw className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <Play className="mr-1.5 h-3.5 w-3.5" />
+            )}
+            Start
+          </Button>
+        )}
       </CardContent>
     </Card>
   );

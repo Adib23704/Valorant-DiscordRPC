@@ -20,8 +20,8 @@ const navItems: {
 
 export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
   return (
-    <aside className="flex w-16 flex-col items-center border-r border-border bg-card py-4">
-      <nav className="flex flex-1 flex-col gap-2">
+    <aside className="flex w-12 flex-col items-center border-r border-border bg-card py-2">
+      <nav className="flex flex-1 flex-col gap-1">
         {navItems.map(({ id, label, icon: Icon }) => (
           <button
             type="button"
@@ -30,15 +30,14 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
               onTabChange(id);
             }}
             className={cn(
-              "flex h-12 w-12 flex-col items-center justify-center rounded-lg transition-colors",
+              "flex h-9 w-9 items-center justify-center rounded-md transition-colors",
               activeTab === id
                 ? "bg-primary/20 text-primary"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
             title={label}
           >
-            <Icon className="h-5 w-5" />
-            <span className="mt-1 text-[10px]">{label}</span>
+            <Icon className="h-4 w-4" />
           </button>
         ))}
       </nav>

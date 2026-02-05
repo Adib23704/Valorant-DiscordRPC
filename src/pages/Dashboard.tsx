@@ -31,14 +31,9 @@ export function Dashboard({
   onStop,
 }: DashboardProps) {
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-foreground">Dashboard</h2>
-        <p className="text-sm text-muted-foreground">Monitor your Discord Rich Presence status</p>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="space-y-6">
+    <div className="space-y-3">
+      <div className="grid gap-3 lg:grid-cols-2">
+        <div className="space-y-3">
           <PresenceControl
             isRunning={isRunning}
             isLoading={isLoading}
@@ -48,7 +43,7 @@ export function Dashboard({
           <ConnectionStatus processStatus={processStatus} connectionStatus={connectionStatus} />
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-3">
           <PresencePreview
             activity={activity}
             isConnected={connectionStatus?.discordConnected ?? false}

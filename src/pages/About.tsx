@@ -27,28 +27,22 @@ export function About() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-foreground">About</h2>
-        <p className="text-sm text-muted-foreground">Information about Valorant DiscordRPC</p>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
+    <div className="space-y-3">
+      <div className="grid gap-3 lg:grid-cols-2">
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-valorant-red">
-                <span className="text-sm font-bold text-white">V</span>
+              <div className="flex h-5 w-5 items-center justify-center rounded bg-valorant-red">
+                <span className="text-[10px] font-bold text-white">V</span>
               </div>
-              Valorant DiscordRPC
+              <span className="text-sm">Valorant DiscordRPC</span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              A modern Discord Rich Presence client for Valorant that displays your in-game status
-              on Discord. Built with Tauri, React, and Rust for optimal performance.
+          <CardContent className="space-y-2">
+            <p className="text-xs text-muted-foreground">
+              Discord Rich Presence for Valorant. Built with Tauri, React, and Rust.
             </p>
-            <div className="flex flex-col gap-2 text-sm">
+            <div className="flex flex-col gap-1 text-xs">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Version</span>
                 <span className="font-mono">{settings.version}</span>
@@ -66,72 +60,67 @@ export function About() {
         </Card>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-2">
             <CardTitle>Features</CardTitle>
           </CardHeader>
           <CardContent>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-valorant-red" />
-                <span>Real-time Discord presence updates</span>
+            <ul className="space-y-1 text-xs text-muted-foreground">
+              <li className="flex items-start gap-1.5">
+                <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-valorant-red" />
+                <span>Real-time Discord presence</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-valorant-red" />
-                <span>Shows map, agent, rank, and party information</span>
+              <li className="flex items-start gap-1.5">
+                <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-valorant-red" />
+                <span>Map, agent, rank, party info</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-valorant-red" />
-                <span>Automatic game state detection</span>
+              <li className="flex items-start gap-1.5">
+                <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-valorant-red" />
+                <span>Auto game state detection</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-valorant-red" />
-                <span>System tray support for background operation</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-valorant-red" />
-                <span>Customizable presence display options</span>
+              <li className="flex items-start gap-1.5">
+                <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-valorant-red" />
+                <span>System tray support</span>
               </li>
             </ul>
           </CardContent>
         </Card>
 
         <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle>Links & Credits</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle>Links</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex flex-wrap gap-3">
+          <CardContent className="space-y-2">
+            <div className="flex flex-wrap gap-2">
               <Button
                 variant="outline"
+                size="sm"
                 onClick={() => {
                   void handleOpenLink("https://github.com/krvntzkl/valorant-rpc");
                 }}
               >
-                <GitHubIcon className="mr-2 h-4 w-4" />
-                GitHub Repository
-                <ExternalLink className="ml-2 h-3 w-3" />
+                <GitHubIcon className="mr-1.5 h-3.5 w-3.5" />
+                GitHub
+                <ExternalLink className="ml-1.5 h-3 w-3" />
               </Button>
               <Button
                 variant="outline"
+                size="sm"
                 onClick={() => {
                   void handleOpenLink("https://valorant-api.com");
                 }}
               >
                 Valorant API
-                <ExternalLink className="ml-2 h-3 w-3" />
+                <ExternalLink className="ml-1.5 h-3 w-3" />
               </Button>
             </div>
 
             <Separator />
 
-            <div className="text-sm text-muted-foreground">
+            <div className="text-[10px] text-muted-foreground">
               <p className="flex items-center gap-1">
-                Made with <Heart className="h-4 w-4 text-valorant-red" /> for the Valorant community
+                Made with <Heart className="h-3 w-3 text-valorant-red" /> for the Valorant community
               </p>
-              <p className="mt-2">
-                This project is not affiliated with Riot Games or Discord. Valorant and related
-                trademarks are property of Riot Games.
-              </p>
+              <p className="mt-1">Not affiliated with Riot Games or Discord.</p>
             </div>
           </CardContent>
         </Card>

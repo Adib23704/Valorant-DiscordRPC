@@ -12,7 +12,6 @@ export function useSettings() {
     setOriginalSettings,
     updatePresenceSettings,
     updateStartupSettings,
-    updateGeneralSettings,
     setIsSaving,
     setIsLoading,
     hasChanges,
@@ -67,7 +66,6 @@ export function useSettings() {
     hasChanges: hasChanges(),
     updatePresenceSettings,
     updateStartupSettings,
-    updateGeneralSettings,
     save: handleSave,
     reset: handleReset,
   };

@@ -9,7 +9,8 @@ import {
 } from "@/lib/tauri";
 import { useConnectionStore } from "@/stores/connectionStore";
 import { usePresenceStore } from "@/stores/presenceStore";
-import { useSettingsStore } from "@/stores/settingsStore";
+
+const POLL_INTERVAL_MS = 3000;
 
 export function usePresence() {
   const {
@@ -27,8 +28,6 @@ export function usePresence() {
   const { processStatus, connectionStatus, setProcessStatus, setConnectionStatus } =
     useConnectionStore();
 
-  const { settings } = useSettingsStore();
-  const refreshInterval = settings.refreshIntervalMs;
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -91,7 +90,7 @@ export function usePresence() {
 
     intervalRef.current = setInterval(() => {
       void pollStatus();
-    }, refreshInterval);
+    }, POLL_INTERVAL_MS);
 
     return () => {
       if (intervalRef.current) {
@@ -99,7 +98,7 @@ export function usePresence() {
         intervalRef.current = null;
       }
     };
-  }, [isRunning, refreshInterval, setProcessStatus, setConnectionStatus, setGameState]);
+  }, [isRunning, setProcessStatus, setConnectionStatus, setGameState]);
 
   const handleStart = useCallback(async () => {
     setIsLoading(true);

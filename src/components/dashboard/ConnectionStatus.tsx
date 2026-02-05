@@ -15,28 +15,25 @@ export function ConnectionStatus({ processStatus, connectionStatus }: Connection
     Icon: React.ElementType,
     OffIcon: React.ElementType
   ) => (
-    <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
-      <div className="flex items-center gap-3">
+    <div className="flex items-center justify-between rounded bg-muted/50 px-2 py-1.5">
+      <div className="flex items-center gap-2">
         {running ? (
-          <Icon className="h-5 w-5 text-green-500" />
+          <Icon className="h-3.5 w-3.5 text-green-500" />
         ) : (
-          <OffIcon className="h-5 w-5 text-muted-foreground" />
+          <OffIcon className="h-3.5 w-3.5 text-muted-foreground" />
         )}
-        <span className="text-sm font-medium">{label}</span>
+        <span className="text-xs font-medium">{label}</span>
       </div>
-      <StatusIndicator
-        status={running ? "online" : "offline"}
-        label={running ? "Running" : "Not Running"}
-      />
+      <StatusIndicator status={running ? "online" : "offline"} label={running ? "On" : "Off"} />
     </div>
   );
 
   return (
     <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg">Connection Status</CardTitle>
+      <CardHeader className="pb-2">
+        <CardTitle>Connections</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-1.5">
         {getProcessIndicator(
           processStatus?.valorantRunning ?? false,
           "Valorant",
@@ -49,7 +46,7 @@ export function ConnectionStatus({ processStatus, connectionStatus }: Connection
           Monitor,
           MonitorOff
         )}
-        <div className="my-2 h-px bg-border" />
+        <div className="my-1 h-px bg-border" />
         {getProcessIndicator(connectionStatus?.discordConnected ?? false, "Discord", Wifi, WifiOff)}
         {getProcessIndicator(
           connectionStatus?.riotApiConnected ?? false,
