@@ -18,6 +18,7 @@ interface DashboardProps {
   isLoading: boolean;
   onStart: () => void;
   onStop: () => void;
+  onLaunchValorant: () => void;
 }
 
 export function Dashboard({
@@ -29,6 +30,7 @@ export function Dashboard({
   isLoading,
   onStart,
   onStop,
+  onLaunchValorant,
 }: DashboardProps) {
   return (
     <div className="space-y-3">
@@ -37,8 +39,10 @@ export function Dashboard({
           <PresenceControl
             isRunning={isRunning}
             isLoading={isLoading}
+            valorantRunning={processStatus?.valorantRunning ?? false}
             onStart={onStart}
             onStop={onStop}
+            onLaunchValorant={onLaunchValorant}
           />
           <ConnectionStatus processStatus={processStatus} connectionStatus={connectionStatus} />
         </div>

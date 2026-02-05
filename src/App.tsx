@@ -3,6 +3,7 @@ import { Layout, type TabType } from "@/components/layout";
 import { SettingsPanel } from "@/components/settings";
 import { Toaster } from "@/components/ui/toaster";
 import { usePresence, useSettings, useTauriEvents } from "@/hooks";
+import { launchValorant } from "@/lib/tauri";
 import { About } from "@/pages/About";
 import { Dashboard } from "@/pages/Dashboard";
 
@@ -45,6 +46,9 @@ function App() {
             isLoading={isLoading}
             onStart={handleStartPresence}
             onStop={handleStopPresence}
+            onLaunchValorant={() => {
+              void launchValorant();
+            }}
           />
         );
       case "settings":

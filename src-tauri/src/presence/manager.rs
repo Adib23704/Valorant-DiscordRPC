@@ -84,6 +84,7 @@ impl PresenceManager {
     let mut last_state: Option<String> = None;
     let mut activity_start_time: Option<i64> = None;
     let mut content_loaded = false;
+    let mut waiting_for_riot_client = false;
 
     loop {
       if !running.load(Ordering::SeqCst) {
@@ -125,10 +126,14 @@ impl PresenceManager {
           Ok(client) => {
             riot_client = Some(client);
             connection_status.write().riot_api_connected = true;
+            waiting_for_riot_client = false;
             tracing::info!("Connected to Riot API");
           }
           Err(e) => {
-            tracing::debug!("Waiting for Riot Client: {}", e);
+            if !waiting_for_riot_client {
+              tracing::debug!("Waiting for Riot Client: {}", e);
+              waiting_for_riot_client = true;
+            }
             connection_status.write().riot_api_connected = false;
             continue;
           }
@@ -145,8 +150,7 @@ impl PresenceManager {
       let presence = match client.fetch_presence().await {
         Ok(p) => p,
         Err(e) => {
-          tracing::debug!("Failed to fetch presence: {}", e);
-
+          tracing::debug!("Lost connection to Riot Client: {}", e);
           riot_client = None;
           connection_status.write().riot_api_connected = false;
           continue;

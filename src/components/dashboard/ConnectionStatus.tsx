@@ -47,7 +47,12 @@ export function ConnectionStatus({ processStatus, connectionStatus }: Connection
           MonitorOff
         )}
         <div className="my-1 h-px bg-border" />
-        {getProcessIndicator(connectionStatus?.discordConnected ?? false, "Discord", Wifi, WifiOff)}
+        {getProcessIndicator(
+          connectionStatus?.discordConnected ?? false,
+          "Discord RPC",
+          Wifi,
+          WifiOff
+        )}
         {getProcessIndicator(
           connectionStatus?.riotApiConnected ?? false,
           "Riot API",

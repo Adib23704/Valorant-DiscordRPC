@@ -131,7 +131,6 @@ While we don't have a comprehensive test suite yet, please:
 
 - Update README.md if adding features
 - Add comments for complex logic
-- Update CHANGELOG.md for significant changes
 
 ## Questions?
 

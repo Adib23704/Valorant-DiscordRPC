@@ -29,9 +29,13 @@ export function usePresence() {
     useConnectionStore();
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
-    const checkInitialState = async () => {
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
+
+    const initializePresence = async () => {
       try {
         const [running, processes, connection] = await Promise.all([
           isPresenceRunning(),
@@ -39,15 +43,26 @@ export function usePresence() {
           getConnectionStatus(),
         ]);
 
-        setIsRunning(running);
         setProcessStatus(processes);
         setConnectionStatus(connection);
+
+        if (!running) {
+          try {
+            await startPresence();
+            setIsRunning(true);
+          } catch (err) {
+            console.error("Failed to auto-start presence:", err);
+            setIsRunning(false);
+          }
+        } else {
+          setIsRunning(true);
+        }
       } catch (err) {
-        console.error("Failed to check initial state:", err);
+        console.error("Failed to initialize:", err);
       }
     };
 
-    void checkInitialState();
+    void initializePresence();
   }, [setIsRunning, setProcessStatus, setConnectionStatus]);
 
   useEffect(() => {

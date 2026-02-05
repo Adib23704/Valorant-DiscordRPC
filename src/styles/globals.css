@@ -68,7 +68,13 @@
 
   button,
   [role="button"] {
+    cursor: pointer;
     user-select: none;
+  }
+
+  button:disabled,
+  [role="button"]:disabled {
+    cursor: not-allowed;
   }
 }
 
