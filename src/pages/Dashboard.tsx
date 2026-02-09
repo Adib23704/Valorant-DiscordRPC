@@ -28,23 +28,18 @@ export function Dashboard({
   onLaunchValorant,
 }: DashboardProps) {
   return (
-    <div className="space-y-3">
-      <div className="grid gap-3 lg:grid-cols-2">
-        <div className="space-y-3">
-          <PresenceControl
-            isRunning={isRunning}
-            isLoading={isLoading}
-            valorantRunning={processStatus?.valorantRunning ?? false}
-            onStart={onStart}
-            onStop={onStop}
-            onLaunchValorant={onLaunchValorant}
-          />
-        </div>
-
-        <div className="space-y-3">
-          <PresencePreview activity={activity} isConnected={discordConnected} />
-          <GameStateCard gameState={gameState} />
-        </div>
+    <div className="space-y-4">
+      <PresenceControl
+        isRunning={isRunning}
+        isLoading={isLoading}
+        valorantRunning={processStatus?.valorantRunning ?? false}
+        onStart={onStart}
+        onStop={onStop}
+        onLaunchValorant={onLaunchValorant}
+      />
+      <div className="grid gap-4 lg:grid-cols-2">
+        <PresencePreview activity={activity} isConnected={discordConnected} />
+        <GameStateCard gameState={gameState} />
       </div>
     </div>
   );

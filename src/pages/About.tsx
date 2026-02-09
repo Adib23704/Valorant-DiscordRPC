@@ -30,7 +30,7 @@ export function About() {
     <div className="space-y-3">
       <div className="grid gap-3 lg:grid-cols-2">
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <div className="flex h-5 w-5 items-center justify-center rounded bg-valorant-red">
                 <span className="text-[10px] font-bold text-white">V</span>
@@ -52,7 +52,7 @@ export function About() {
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader>
             <CardTitle>Features</CardTitle>
           </CardHeader>
           <CardContent>
@@ -78,7 +78,7 @@ export function About() {
         </Card>
 
         <Card className="lg:col-span-2">
-          <CardHeader className="pb-2">
+          <CardHeader>
             <CardTitle>Links</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">

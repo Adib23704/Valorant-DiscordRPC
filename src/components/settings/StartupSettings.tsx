@@ -11,7 +11,7 @@ interface StartupSettingsProps {
 export function StartupSettings({ settings, onChange }: StartupSettingsProps) {
   return (
     <Card>
-      <CardHeader className="pb-2">
+      <CardHeader>
         <CardTitle>Startup & Behavior</CardTitle>
         <CardDescription>App startup and window behavior</CardDescription>
       </CardHeader>

@@ -1,6 +1,9 @@
+@import "@fontsource-variable/inter";
 @import "tailwindcss";
 
 @theme {
+  --font-sans: "Inter Variable", sans-serif;
+  --font-mono: "Inter Variable", sans-serif;
   --color-background: hsl(0 0% 7%);
   --color-foreground: hsl(0 0% 95%);
   --color-card: hsl(0 0% 10%);
@@ -36,9 +39,12 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   ::-webkit-scrollbar {

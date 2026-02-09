@@ -18,7 +18,7 @@ interface PresenceSettingsProps {
 export function PresenceSettings({ settings, onChange }: PresenceSettingsProps) {
   return (
     <Card>
-      <CardHeader className="pb-2">
+      <CardHeader>
         <CardTitle>Presence Display</CardTitle>
         <CardDescription>What appears in your Discord status</CardDescription>
       </CardHeader>

@@ -11,13 +11,13 @@ export function GameStateCard({ gameState }: GameStateCardProps) {
   if (!gameState) {
     return (
       <Card>
-        <CardHeader className="pb-2">
+        <CardHeader>
           <CardTitle>Game State</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col items-center justify-center py-4 text-center">
-            <Gamepad2 className="mb-2 h-8 w-8 text-muted-foreground/50" />
-            <p className="text-xs text-muted-foreground">Waiting for game...</p>
+          <div className="flex flex-col items-center justify-center py-6 text-center">
+            <Gamepad2 className="mb-2 h-8 w-8 text-muted-foreground/30" />
+            <p className="text-sm text-muted-foreground">Waiting for game...</p>
           </div>
         </CardContent>
       </Card>
@@ -39,22 +39,22 @@ export function GameStateCard({ gameState }: GameStateCardProps) {
 
   return (
     <Card>
-      <CardHeader className="pb-2">
+      <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Game State</CardTitle>
           <Badge
             variant={getStateBadgeVariant(gameState.sessionState)}
-            className="text-[10px] px-1.5 py-0"
+            className="px-2 py-0.5 text-[10px]"
           >
             {gameState.sessionState}
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-1.5">
+      <CardContent className="space-y-2">
         {gameState.queueId && (
-          <div className="flex items-center gap-2">
-            <Swords className="h-3 w-3 text-muted-foreground" />
-            <span className="text-xs">
+          <div className="flex items-center gap-2.5">
+            <Swords className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-sm">
               <span className="text-muted-foreground">Queue:</span>{" "}
               <span className="font-medium">{gameState.queueId}</span>
             </span>
@@ -62,9 +62,9 @@ export function GameStateCard({ gameState }: GameStateCardProps) {
         )}
 
         {gameState.mapName && (
-          <div className="flex items-center gap-2">
-            <MapIcon className="h-3 w-3 text-muted-foreground" />
-            <span className="text-xs">
+          <div className="flex items-center gap-2.5">
+            <MapIcon className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-sm">
               <span className="text-muted-foreground">Map:</span>{" "}
               <span className="font-medium">{gameState.mapName}</span>
             </span>
@@ -72,9 +72,9 @@ export function GameStateCard({ gameState }: GameStateCardProps) {
         )}
 
         {gameState.partySize !== undefined && gameState.maxPartySize !== undefined && (
-          <div className="flex items-center gap-2">
-            <Users className="h-3 w-3 text-muted-foreground" />
-            <span className="text-xs">
+          <div className="flex items-center gap-2.5">
+            <Users className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-sm">
               <span className="text-muted-foreground">Party:</span>{" "}
               <span className="font-medium">
                 {gameState.partySize}/{gameState.maxPartySize}
@@ -84,12 +84,12 @@ export function GameStateCard({ gameState }: GameStateCardProps) {
         )}
 
         {gameState.score && (
-          <div className="flex items-center gap-2">
-            <Clock className="h-3 w-3 text-muted-foreground" />
-            <span className="text-xs">
+          <div className="flex items-center gap-2.5">
+            <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-sm">
               <span className="text-muted-foreground">Score:</span>{" "}
               <span className="font-medium text-green-500">{gameState.score.ally}</span>
-              <span className="text-muted-foreground">-</span>
+              <span className="text-muted-foreground"> - </span>
               <span className="font-medium text-red-500">{gameState.score.enemy}</span>
             </span>
           </div>
