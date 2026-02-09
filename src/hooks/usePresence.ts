@@ -30,6 +30,8 @@ export function usePresence() {
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const hasInitialized = useRef(false);
+  const userPausedRef = useRef(false);
+  const prevValorantRunningRef = useRef<boolean | null>(null);
 
   useEffect(() => {
     if (hasInitialized.current) return;
@@ -45,17 +47,11 @@ export function usePresence() {
 
         setProcessStatus(processes);
         setConnectionStatus(connection);
+        setIsRunning(running);
+        prevValorantRunningRef.current = processes.valorantRunning;
 
-        if (!running) {
-          try {
-            await startPresence();
-            setIsRunning(true);
-          } catch (err) {
-            console.error("Failed to auto-start presence:", err);
-            setIsRunning(false);
-          }
-        } else {
-          setIsRunning(true);
+        if (running && processes.valorantRunning) {
+          userPausedRef.current = false;
         }
       } catch (err) {
         console.error("Failed to initialize:", err);
@@ -64,6 +60,43 @@ export function usePresence() {
 
     void initializePresence();
   }, [setIsRunning, setProcessStatus, setConnectionStatus]);
+
+  useEffect(() => {
+    const valorantRunning = processStatus?.valorantRunning ?? false;
+    const wasRunning = prevValorantRunningRef.current;
+    prevValorantRunningRef.current = valorantRunning;
+
+    if (wasRunning === null) return;
+
+    if (valorantRunning && !wasRunning) {
+      userPausedRef.current = false;
+      if (!isRunning) {
+        void (async () => {
+          try {
+            await startPresence();
+            setIsRunning(true);
+          } catch (err) {
+            console.error("Failed to auto-start presence:", err);
+          }
+        })();
+      }
+    }
+
+    if (!valorantRunning && wasRunning) {
+      userPausedRef.current = false;
+      if (isRunning) {
+        void (async () => {
+          try {
+            await stopPresence();
+            setIsRunning(false);
+            setGameState(null);
+          } catch (err) {
+            console.error("Failed to auto-stop presence:", err);
+          }
+        })();
+      }
+    }
+  }, [processStatus?.valorantRunning, isRunning, setIsRunning, setGameState]);
 
   useEffect(() => {
     const pollStatus = async () => {
@@ -118,6 +151,7 @@ export function usePresence() {
   }, [isRunning, setProcessStatus, setConnectionStatus, setGameState]);
 
   const handleStart = useCallback(async () => {
+    userPausedRef.current = false;
     setIsLoading(true);
     setError(null);
     try {
@@ -133,6 +167,7 @@ export function usePresence() {
   }, [setIsLoading, setIsRunning, setError]);
 
   const handleStop = useCallback(async () => {
+    userPausedRef.current = true;
     setIsLoading(true);
     try {
       await stopPresence();
