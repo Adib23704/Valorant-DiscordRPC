@@ -2,17 +2,16 @@ use std::collections::HashMap;
 
 pub fn queue_aliases() -> HashMap<&'static str, &'static str> {
   HashMap::from([
-    ("newmap", "New Map"),
     ("competitive", "Competitive"),
     ("unrated", "Unrated"),
     ("spikerush", "Spike Rush"),
     ("deathmatch", "Deathmatch"),
     ("ggteam", "Escalation"),
-    ("onefa", "Replication"),
     ("custom", "Custom"),
-    ("snowball", "Snowball Fight"),
     ("swiftplay", "Swiftplay"),
     ("hurm", "Team Deathmatch"),
+    ("valaram", "All Random One Site"),
+    ("premier-scrim", "Premier"),
     ("", "Custom"),
   ])
 }

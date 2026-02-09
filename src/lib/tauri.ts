@@ -1,5 +1,4 @@
 import { invoke } from "@tauri-apps/api/core";
-import { openUrl } from "@tauri-apps/plugin-opener";
 import type { AppSettings, ConnectionStatus, GameStatePayload, ProcessStatus } from "@/types";
 
 export async function startPresence(): Promise<void> {
@@ -39,5 +38,5 @@ export async function getConnectionStatus(): Promise<ConnectionStatus> {
 }
 
 export async function launchValorant(): Promise<void> {
-  await openUrl("valorant://");
+  return invoke("launch_valorant");
 }

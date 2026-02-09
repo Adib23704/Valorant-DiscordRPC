@@ -29,9 +29,11 @@ export function useTauriEvents() {
             const payload = event.payload;
             setGameState({
               sessionState: payload.sessionState,
-              queueId: payload.queueId,
+              queueName: payload.queueName,
               mapName: payload.mapName,
               agentName: payload.agentName,
+              rankName: payload.rankName,
+              accountLevel: payload.accountLevel,
               partySize: payload.partySize?.[0],
               maxPartySize: payload.partySize?.[1],
               score: payload.score

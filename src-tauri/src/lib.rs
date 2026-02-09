@@ -105,6 +105,7 @@ pub fn run() {
       commands::check_processes,
       commands::get_game_state,
       commands::get_connection_status,
+      commands::launch_valorant,
     ])
     .run(tauri::generate_context!())
     .expect("Error while running Tauri application");

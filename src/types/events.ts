@@ -12,9 +12,11 @@ export interface GameStatePayload {
   valorantRunning: boolean;
   riotClientRunning: boolean;
   sessionState: SessionLoopState;
-  queueId?: string;
+  queueName?: string;
   mapName?: string;
   agentName?: string;
+  rankName?: string;
+  accountLevel?: number;
   score?: [number, number];
   isIdle: boolean;
   partySize?: [number, number];
@@ -22,9 +24,11 @@ export interface GameStatePayload {
 
 export interface GameState {
   sessionState: string;
-  queueId?: string;
+  queueName?: string;
   mapName?: string;
   agentName?: string;
+  rankName?: string;
+  accountLevel?: number;
   partySize?: number;
   maxPartySize?: number;
   score?: {

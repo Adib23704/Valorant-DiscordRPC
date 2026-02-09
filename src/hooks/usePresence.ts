@@ -82,9 +82,11 @@ export function usePresence() {
             if (state) {
               setGameState({
                 sessionState: state.sessionState,
-                queueId: state.queueId,
+                queueName: state.queueName,
                 mapName: state.mapName,
                 agentName: state.agentName,
+                rankName: state.rankName,
+                accountLevel: state.accountLevel,
                 partySize: state.partySize?.[0],
                 maxPartySize: state.partySize?.[1],
                 score: state.score ? { ally: state.score[0], enemy: state.score[1] } : undefined,

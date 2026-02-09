@@ -6,7 +6,7 @@ use tokio::sync::Notify;
 
 use crate::commands::status::ConnectionStatus;
 use crate::config::{AppSettings, SettingsStore};
-use crate::content::{ContentData, ContentLoader};
+use crate::content::{constants::get_queue_name, ContentData, ContentLoader};
 use crate::discord::DiscordClient;
 use crate::error::{AppError, AppResult};
 use crate::events::GameStatePayload;
@@ -257,21 +257,54 @@ impl PresenceManager {
       };
 
       {
+        let is_range = presence.provisioning_flow.as_deref() == Some("ShootingRange");
+
+        let queue_name = if is_range {
+          Some("The Range".to_string())
+        } else {
+          presence
+            .queue_id
+            .as_deref()
+            .map(|id| get_queue_name(id).to_string())
+        };
+
+        let map_name = presence
+          .match_map
+          .as_deref()
+          .and_then(|path| content.get_map_by_path(path))
+          .map(|m| m.display_name.clone());
+
+        let rank_name = presence
+          .competitive_tier
+          .filter(|&tier| tier > 0)
+          .map(|tier| content.get_rank_name(tier));
+
+        let score = if is_range {
+          None
+        } else {
+          match session_state {
+            SessionLoopState::Ingame => match (
+              presence.party_owner_match_score_ally_team,
+              presence.party_owner_match_score_enemy_team,
+            ) {
+              (Some(ally), Some(enemy)) => Some((ally, enemy)),
+              _ => None,
+            },
+            _ => None,
+          }
+        };
+
         let game_state = GameStatePayload {
           valorant_running: true,
           riot_client_running: true,
           session_state,
-          queue_id: presence.queue_id.clone(),
-          map_name: None,
+          queue_name,
+          map_name,
           agent_name: None,
+          rank_name,
+          account_level: presence.account_level,
           party_size: Some((presence.party_size, presence.max_party_size)),
-          score: match (
-            presence.party_owner_match_score_ally_team,
-            presence.party_owner_match_score_enemy_team,
-          ) {
-            (Some(ally), Some(enemy)) => Some((ally, enemy)),
-            _ => None,
-          },
+          score,
           is_idle: presence.is_idle,
         };
         *current_state.write() = Some(game_state);

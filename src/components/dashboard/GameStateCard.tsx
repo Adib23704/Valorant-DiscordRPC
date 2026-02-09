@@ -1,4 +1,4 @@
-import { Clock, Gamepad2, Map as MapIcon, Swords, Users } from "lucide-react";
+import { Clock, Gamepad2, Map as MapIcon, Shield, Star, Swords, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { GameState } from "@/types/events";
@@ -51,12 +51,12 @@ export function GameStateCard({ gameState }: GameStateCardProps) {
         </div>
       </CardHeader>
       <CardContent className="space-y-2">
-        {gameState.queueId && (
+        {gameState.queueName && (
           <div className="flex items-center gap-2.5">
             <Swords className="h-3.5 w-3.5 text-muted-foreground" />
             <span className="text-sm">
               <span className="text-muted-foreground">Queue:</span>{" "}
-              <span className="font-medium">{gameState.queueId}</span>
+              <span className="font-medium">{gameState.queueName}</span>
             </span>
           </div>
         )}
@@ -67,6 +67,26 @@ export function GameStateCard({ gameState }: GameStateCardProps) {
             <span className="text-sm">
               <span className="text-muted-foreground">Map:</span>{" "}
               <span className="font-medium">{gameState.mapName}</span>
+            </span>
+          </div>
+        )}
+
+        {gameState.rankName && (
+          <div className="flex items-center gap-2.5">
+            <Shield className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-sm">
+              <span className="text-muted-foreground">Rank:</span>{" "}
+              <span className="font-medium">{gameState.rankName}</span>
+            </span>
+          </div>
+        )}
+
+        {gameState.accountLevel != null && (
+          <div className="flex items-center gap-2.5">
+            <Star className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-sm">
+              <span className="text-muted-foreground">Level:</span>{" "}
+              <span className="font-medium">{gameState.accountLevel}</span>
             </span>
           </div>
         )}
