@@ -160,7 +160,7 @@ impl PresenceManager {
           if msg.contains("presence not found") || msg.contains("API returned status") =>
         {
           if !waiting_for_presence {
-            tracing::debug!("Waiting for Valorant to start: {}", msg);
+            tracing::debug!("Waiting for VALORANT to start: {}", msg);
             waiting_for_presence = true;
           }
           continue;

@@ -46,9 +46,7 @@ function App() {
             isLoading={isLoading}
             onStart={handleStartPresence}
             onStop={handleStopPresence}
-            onLaunchValorant={() => {
-              void launchValorant();
-            }}
+            onLaunchValorant={launchValorant}
           />
         );
       case "settings":

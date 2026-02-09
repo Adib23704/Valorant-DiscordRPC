@@ -78,5 +78,5 @@ body:
           required: true
         - label: I have Discord desktop app running
           required: true
-        - label: I have Valorant/Riot Client installed
+        - label: I have VALORANT/Riot Client installed
           required: true

@@ -81,7 +81,7 @@ export function PresencePreview({ activity, isConnected }: PresencePreviewProps)
             </div>
 
             <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5">
-              <p className="text-xs font-semibold text-white">Valorant</p>
+              <p className="text-xs font-semibold text-white">VALORANT</p>
               {activity?.details && (
                 <p className="truncate text-[11px] leading-tight text-gray-300">
                   {activity.details}

@@ -37,6 +37,7 @@
       "**",
       "!**/node_modules",
       "!**/dist",
+      "!**/legacy-codebase",
       "!**/src-tauri/target",
       "!**/src-tauri/gen",
       "!**/*.config.js",

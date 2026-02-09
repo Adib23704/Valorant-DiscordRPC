@@ -53,7 +53,7 @@ fn find_riot_client() -> AppResult<PathBuf> {
 fn do_launch_valorant() -> AppResult<()> {
   let riot_client_path = find_riot_client()?;
 
-  tracing::info!("Launching Valorant via: {}", riot_client_path.display());
+  tracing::info!("Launching VALORANT via: {}", riot_client_path.display());
 
   let result = std::process::Command::new(&riot_client_path)
     .args(["--launch-product=valorant", "--launch-patchline=live"])
@@ -70,7 +70,7 @@ fn do_launch_valorant() -> AppResult<()> {
     Err(e) => {
       tracing::error!("Failed to spawn RiotClientServices.exe: {}", e);
       Err(AppError::Process(format!(
-        "Failed to launch Valorant: {}",
+        "Failed to launch VALORANT: {}",
         e
       )))
     }

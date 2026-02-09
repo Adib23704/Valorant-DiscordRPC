@@ -35,13 +35,11 @@ export function About() {
               <div className="flex h-5 w-5 items-center justify-center rounded bg-valorant-red">
                 <span className="text-[10px] font-bold text-white">V</span>
               </div>
-              <span className="text-sm">Valorant DiscordRPC</span>
+              <span className="text-sm">VALORANT DiscordRPC</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <p className="text-xs text-muted-foreground">
-              Discord Rich Presence for Valorant. Built with Tauri, React, and Rust.
-            </p>
+            <p className="text-xs text-muted-foreground">Discord Rich Presence for VALORANT.</p>
             <div className="flex flex-col gap-1 text-xs">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Version</span>
@@ -87,21 +85,11 @@ export function About() {
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  void handleOpenLink("https://github.com/Adib23704/Valorant-DiscordRPC");
+                  void handleOpenLink("https://github.com/Adib23704/VALORANT-DiscordRPC");
                 }}
               >
                 <GitHubIcon className="mr-1.5 h-3.5 w-3.5" />
                 GitHub
-                <ExternalLink className="ml-1.5 h-3 w-3" />
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  void handleOpenLink("https://valorant-api.com");
-                }}
-              >
-                Valorant API
                 <ExternalLink className="ml-1.5 h-3 w-3" />
               </Button>
             </div>
@@ -110,7 +98,7 @@ export function About() {
 
             <div className="text-[10px] text-muted-foreground">
               <p className="flex items-center gap-1">
-                Made with <Heart className="h-3 w-3 text-valorant-red" /> for the Valorant community
+                Made with <Heart className="h-3 w-3 text-valorant-red" /> for the VALORANT community
               </p>
               <p className="mt-1">Not affiliated with Riot Games or Discord.</p>
             </div>

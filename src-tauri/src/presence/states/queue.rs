@@ -16,7 +16,7 @@ pub fn build_queue_presence(
   let level_text = presence
     .account_level
     .map(|l| format!("Level {}", l))
-    .unwrap_or_else(|| "Valorant".to_string());
+    .unwrap_or_else(|| "VALORANT".to_string());
 
   let mut activity = DiscordActivity::new()
     .state(party_state)

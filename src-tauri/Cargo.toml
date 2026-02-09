@@ -1,11 +1,11 @@
 [package]
 name = "valorant-discordrpc"
 version = "1.0.0"
-description = "A modern Discord Rich Presence client for Valorant"
+description = "A modern Discord Rich Presence client for VALORANT"
 authors = ["Adib23704"]
 edition = "2021"
 license = "MIT"
-repository = "https://github.com/Adib23704/Valorant-DiscordRPC"
+repository = "https://github.com/Adib23704/VALORANT-DiscordRPC"
 
 [lib]
 name = "valorant_discordrpc_lib"

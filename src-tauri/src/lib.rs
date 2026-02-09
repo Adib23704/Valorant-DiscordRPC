@@ -34,7 +34,7 @@ pub fn run() {
     .init();
 
   tracing::info!(
-    "Starting Valorant DiscordRPC v{}",
+    "Starting VALORANT DiscordRPC v{}",
     env!("CARGO_PKG_VERSION")
   );
 

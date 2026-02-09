@@ -28,7 +28,7 @@ export function Header({ isRunning }: HeaderProps) {
           <Activity className="h-3.5 w-3.5 text-white" aria-hidden="true" />
         </div>
         <div className="flex items-center gap-2" data-tauri-drag-region>
-          <h1 className="text-sm font-semibold text-foreground">Valorant DiscordRPC</h1>
+          <h1 className="text-sm font-semibold text-foreground">VALORANT DiscordRPC</h1>
           <span
             className={`h-1.5 w-1.5 rounded-full ${isRunning ? "bg-green-500" : "bg-muted-foreground"}`}
           />

@@ -13,7 +13,7 @@ interface DashboardProps {
   isLoading: boolean;
   onStart: () => void;
   onStop: () => void;
-  onLaunchValorant: () => void;
+  onLaunchValorant: () => Promise<void>;
 }
 
 export function Dashboard({

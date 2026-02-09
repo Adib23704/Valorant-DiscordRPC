@@ -89,7 +89,7 @@ pub fn build_menu_presence(presence: &PresenceData, content: &ContentData) -> Di
   let mut activity = DiscordActivity::new()
     .state(party_state)
     .details(format!("Menu - {}", queue_name))
-    .large_image("game_icon", Some("Valorant".to_string()));
+    .large_image("game_icon", Some("VALORANT".to_string()));
 
   if presence.party_size > 0 {
     activity = activity.party(

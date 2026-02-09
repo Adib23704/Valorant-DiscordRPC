@@ -1,6 +1,6 @@
-# Contributing to Valorant DiscordRPC
+# Contributing to VALORANT DiscordRPC
 
-Thank you for your interest in contributing to Valorant DiscordRPC! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to VALORANT DiscordRPC! This document provides guidelines and information for contributors.
 
 ## Code of Conduct
 
@@ -50,8 +50,8 @@ Feature suggestions are welcome! Please:
 
 ```bash
 # Clone your fork
-git clone https://github.com/Adib23704/Valorant-DiscordRPC.git
-cd Valorant-DiscordRPC
+git clone https://github.com/Adib23704/VALORANT-DiscordRPC.git
+cd VALORANT-DiscordRPC
 
 # Install dependencies
 pnpm install --frozen-lockfile
@@ -123,7 +123,7 @@ pnpm validate
 While we don't have a comprehensive test suite yet, please:
 
 - Test your changes manually
-- Verify the app works with Valorant running
+- Verify the app works with VALORANT running
 - Check Discord presence updates correctly
 - Test on Windows 10/11
 

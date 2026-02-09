@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Valorant DiscordRPC",
+  "productName": "VALORANT DiscordRPC",
   "version": "1.0.0",
-  "identifier": "Valorant DiscordRPC",
+  "identifier": "VALORANT DiscordRPC",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "beforeBuildCommand": "pnpm build",
@@ -13,7 +13,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "Valorant DiscordRPC",
+        "title": "VALORANT DiscordRPC",
         "width": 520,
         "height": 490,
         "resizable": false,
@@ -43,7 +43,7 @@
       "timestampUrl": ""
     },
     "category": "Utility",
-    "shortDescription": "Discord Rich Presence for Valorant",
-    "longDescription": "A modern Discord Rich Presence client for Valorant that displays your in-game status on Discord."
+    "shortDescription": "Discord Rich Presence for VALORANT",
+    "longDescription": "A modern Discord Rich Presence client for VALORANT that displays your in-game status on Discord."
   }
 }
