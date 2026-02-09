@@ -39,7 +39,7 @@ function App() {
         return (
           <Dashboard
             processStatus={processStatus}
-            connectionStatus={connectionStatus}
+            discordConnected={connectionStatus?.discordConnected ?? false}
             gameState={gameState}
             activity={activity}
             isRunning={isRunning}
