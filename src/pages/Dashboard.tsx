@@ -1,17 +1,12 @@
-import { ConnectionStatus } from "@/components/dashboard/ConnectionStatus";
 import { GameStateCard } from "@/components/dashboard/GameStateCard";
 import { PresenceControl } from "@/components/dashboard/PresenceControl";
 import { PresencePreview } from "@/components/dashboard/PresencePreview";
-import type {
-  ConnectionStatus as ConnectionStatusType,
-  DiscordActivity,
-  ProcessStatus,
-} from "@/types";
+import type { DiscordActivity, ProcessStatus } from "@/types";
 import type { GameState } from "@/types/events";
 
 interface DashboardProps {
   processStatus: ProcessStatus | null;
-  connectionStatus: ConnectionStatusType | null;
+  discordConnected: boolean;
   gameState: GameState | null;
   activity: DiscordActivity | null;
   isRunning: boolean;
@@ -23,7 +18,7 @@ interface DashboardProps {
 
 export function Dashboard({
   processStatus,
-  connectionStatus,
+  discordConnected,
   gameState,
   activity,
   isRunning,
@@ -44,14 +39,10 @@ export function Dashboard({
             onStop={onStop}
             onLaunchValorant={onLaunchValorant}
           />
-          <ConnectionStatus processStatus={processStatus} connectionStatus={connectionStatus} />
         </div>
 
         <div className="space-y-3">
-          <PresencePreview
-            activity={activity}
-            isConnected={connectionStatus?.discordConnected ?? false}
-          />
+          <PresencePreview activity={activity} isConnected={discordConnected} />
           <GameStateCard gameState={gameState} />
         </div>
       </div>

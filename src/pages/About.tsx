@@ -47,14 +47,6 @@ export function About() {
                 <span className="text-muted-foreground">Version</span>
                 <span className="font-mono">{settings.version}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Framework</span>
-                <span className="font-mono">Tauri v2</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">License</span>
-                <span className="font-mono">Apache-2.0</span>
-              </div>
             </div>
           </CardContent>
         </Card>
@@ -95,7 +87,7 @@ export function About() {
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  void handleOpenLink("https://github.com/krvntzkl/valorant-rpc");
+                  void handleOpenLink("https://github.com/Adib23704/Valorant-DiscordRPC");
                 }}
               >
                 <GitHubIcon className="mr-1.5 h-3.5 w-3.5" />

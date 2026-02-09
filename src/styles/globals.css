@@ -26,18 +26,6 @@
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
-
-  --animate-pulse-slow: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-
-  @keyframes pulse-slow {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-  }
 }
 
 @layer base {
@@ -89,17 +77,5 @@
 
   .card-hover {
     @apply transition-all duration-200 hover:border-valorant-red/50 hover:shadow-lg hover:shadow-valorant-red/10;
-  }
-
-  .status-online {
-    @apply animate-pulse-slow bg-green-500;
-  }
-
-  .status-offline {
-    @apply bg-gray-500;
-  }
-
-  .status-connecting {
-    @apply animate-pulse bg-yellow-500;
   }
 }

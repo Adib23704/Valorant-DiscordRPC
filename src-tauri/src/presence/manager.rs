@@ -8,7 +8,7 @@ use crate::commands::status::ConnectionStatus;
 use crate::config::{AppSettings, SettingsStore};
 use crate::content::{ContentData, ContentLoader};
 use crate::discord::DiscordClient;
-use crate::error::AppResult;
+use crate::error::{AppError, AppResult};
 use crate::events::GameStatePayload;
 use crate::presence::states::*;
 use crate::riot::{RiotClient, SessionLoopState};
@@ -85,6 +85,7 @@ impl PresenceManager {
     let mut activity_start_time: Option<i64> = None;
     let mut content_loaded = false;
     let mut waiting_for_riot_client = false;
+    let mut waiting_for_presence = false;
 
     loop {
       if !running.load(Ordering::SeqCst) {
@@ -148,10 +149,26 @@ impl PresenceManager {
       let settings: AppSettings = settings_store.get_settings().await.unwrap_or_default();
 
       let presence = match client.fetch_presence().await {
-        Ok(p) => p,
+        Ok(p) => {
+          if waiting_for_presence {
+            tracing::info!("Player presence found");
+            waiting_for_presence = false;
+          }
+          p
+        }
+        Err(AppError::RiotApi(ref msg))
+          if msg.contains("presence not found") || msg.contains("API returned status") =>
+        {
+          if !waiting_for_presence {
+            tracing::debug!("Waiting for Valorant to start: {}", msg);
+            waiting_for_presence = true;
+          }
+          continue;
+        }
         Err(e) => {
           tracing::debug!("Lost connection to Riot Client: {}", e);
           riot_client = None;
+          waiting_for_presence = false;
           connection_status.write().riot_api_connected = false;
           continue;
         }

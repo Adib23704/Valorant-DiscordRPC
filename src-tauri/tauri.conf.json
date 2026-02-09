@@ -14,8 +14,8 @@
     "windows": [
       {
         "title": "Valorant DiscordRPC",
-        "width": 720,
-        "height": 480,
+        "width": 520,
+        "height": 490,
         "resizable": false,
         "center": true,
         "decorations": false,

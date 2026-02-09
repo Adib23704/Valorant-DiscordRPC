@@ -30,7 +30,7 @@ export function PresenceControl({
       <CardContent className="flex items-center gap-2">
         <Button
           size="sm"
-          className="flex-3 bg-valorant-red hover:bg-valorant-red/80"
+          className="flex-1 bg-valorant-red hover:bg-valorant-red/80"
           onClick={onLaunchValorant}
           disabled={valorantRunning}
         >
@@ -39,31 +39,31 @@ export function PresenceControl({
         </Button>
         {isRunning ? (
           <Button
-            variant="ghost"
+            variant="secondary"
             size="sm"
-            className="text-xs text-muted-foreground"
+            className="flex-1"
             onClick={onStop}
             disabled={isLoading}
           >
             {isLoading ? (
-              <RefreshCw className="mr-1 h-3 w-3 animate-spin" />
+              <RefreshCw className="mr-1.5 h-4 w-4 animate-spin" />
             ) : (
-              <Pause className="mr-1 h-3 w-3" />
+              <Pause className="mr-1.5 h-4 w-4" />
             )}
             Pause Discord RPC
           </Button>
         ) : (
           <Button
-            variant="ghost"
+            variant="secondary"
             size="sm"
-            className="text-xs text-muted-foreground"
+            className="flex-1"
             onClick={onStart}
             disabled={isLoading}
           >
             {isLoading ? (
-              <RefreshCw className="mr-1 h-3 w-3 animate-spin" />
+              <RefreshCw className="mr-1.5 h-4 w-4 animate-spin" />
             ) : (
-              <Play className="mr-1 h-3 w-3" />
+              <Play className="mr-1.5 h-4 w-4" />
             )}
             Resume Discord RPC
           </Button>
