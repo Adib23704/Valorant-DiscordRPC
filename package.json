@@ -1,8 +1,13 @@
 {
   "name": "valorant-discordrpc",
-  "private": true,
+  "description": "A modern Discord Rich Presence client for Valorant that displays your in-game status on Discord.",
   "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "Adib23704",
+    "email": "adib23704@gmail.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -35,21 +40,21 @@
     "@tauri-apps/plugin-store": "^2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.563.0",
+    "lucide-react": "^0.564.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.0",
-    "tailwind-merge": "^3.4.0",
+    "tailwind-merge": "^3.4.1",
     "zustand": "^5.0.11"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.14",
+    "@biomejs/biome": "^2.4.1",
     "@tailwindcss/vite": "^4.1.18",
     "@tauri-apps/cli": "^2",
-    "@types/node": "^25.2.2",
-    "@types/react": "^19.2.13",
+    "@types/node": "^25.2.3",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.3",
+    "@vitejs/plugin-react": "^5.1.4",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "postcss": "^8.5.6",
